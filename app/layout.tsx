@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "NawrasFoods - Documents Portal",
+  title: "NawrasFoods ",
   description: "Access and download important documents from NawrasFoods",
   icons: {
     icon: "/favicon.ico",

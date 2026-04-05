@@ -12,15 +12,17 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <Image
-                src="/images/logo.png"
+                src="/images/logo-nav.png"
                 alt="NawrasFoods"
                 width={40}
                 height={40}
-                className="rounded"
+                className="rounded-md"
               />
-              <h3 className="text-xl font-bold text-white">NawrasFoods</h3>
+              <h3 className="text-xl font-bold text-white">
+                Nawras<span className="text-red-500">Foods</span>
+              </h3>
             </div>
-            <p className="text-sm">
+            <p className="text-sm leading-relaxed">
               A simple portal to access and download important documents easily.
             </p>
           </div>
@@ -30,14 +32,14 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/" className="hover:text-white transition-colors">
+                <Link href="/" className="hover:text-red-400 transition-colors">
                   Home
                 </Link>
               </li>
               <li>
                 <a
                   href="#pdf-section"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-red-400 transition-colors"
                 >
                   Documents
                 </a>
@@ -45,7 +47,7 @@ export default function Footer() {
               <li>
                 <a
                   href="#contact-section"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-red-400 transition-colors"
                 >
                   Contact Us
                 </a>
@@ -59,7 +61,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li className="flex items-center gap-2">
                 <svg
-                  className="w-4 h-4 flex-shrink-0"
+                  className="w-4 h-4 flex-shrink-0 text-red-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -75,7 +77,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <svg
-                  className="w-4 h-4 flex-shrink-0"
+                  className="w-4 h-4 flex-shrink-0 text-amber-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -91,7 +93,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-2">
                 <svg
-                  className="w-4 h-4 flex-shrink-0 mt-0.5"
+                  className="w-4 h-4 flex-shrink-0 mt-0.5 text-gray-500"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

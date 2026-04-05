@@ -113,7 +113,7 @@ export default function AdminDashboard() {
           <div className="flex items-center gap-4">
             <Link href="/">
               <Image
-                src="/images/logo.png"
+                src="/images/logo-nav.png"
                 alt="NawrasFoods"
                 width={40}
                 height={40}

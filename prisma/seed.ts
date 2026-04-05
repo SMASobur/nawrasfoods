@@ -4,19 +4,29 @@ import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function main() {
-  // Create admin user (password: sbr123)
-  const hashedPassword = await bcrypt.hash("sbr123", 10);
+  // Read from .env (safe)
+  const username = process.env.ADMIN_USERNAME;
+  const password = process.env.ADMIN_PASSWORD;
+
+  if (!username || !password) {
+    console.error(
+      "Error: ADMIN_USERNAME and ADMIN_PASSWORD must be set in .env",
+    );
+    process.exit(1);
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
 
   await prisma.admin.upsert({
-    where: { username: "sikdar" },
-    update: {},
+    where: { username: username },
+    update: { password: hashedPassword },
     create: {
-      username: "sikdar",
+      username: username,
       password: hashedPassword,
     },
   });
 
-  console.log("Admin user created successfully!");
+  console.log("Admin user updated successfully!");
 }
 
 main()

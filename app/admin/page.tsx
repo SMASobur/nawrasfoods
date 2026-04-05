@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -40,6 +41,17 @@ export default function AdminLogin() {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
+          {/* Logo with Gold Ring Shadow */}
+          <div className="mb-8 inline-block p-3 rounded-2xl shadow-2xl bg-white ring-4 ring-amber-200/50">
+            <Image
+              src="/images/logo-nav.png"
+              alt="NawrasFoods Logo"
+              width={140}
+              height={140}
+              className="rounded-xl"
+              priority
+            />
+          </div>
           <h1 className="text-2xl font-bold text-gray-900">Admin Login</h1>
           <p className="text-gray-600 mt-1">PDFPortal Admin Panel</p>
         </div>
@@ -97,10 +109,6 @@ export default function AdminLogin() {
           >
             {loading ? "Logging in..." : "Login"}
           </button>
-
-          <p className="text-center text-sm text-gray-500 mt-4">
-            Default: admin / admin123
-          </p>
         </form>
       </div>
     </div>

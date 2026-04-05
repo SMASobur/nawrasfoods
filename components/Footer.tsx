@@ -23,6 +23,13 @@ export default function Footer() {
               </h3>
             </div>
             <p className="text-sm leading-relaxed">Norrköping, Sweden</p>
+            <br />
+            <Link
+              href="/admin"
+              className="bg-red-400 hover:bg-red-700 text-white px-5 py-2 rounded-lg transition-colors text-sm font-medium shadow-sm"
+            >
+              Admin
+            </Link>
           </div>
 
           {/* Quick Links */}

@@ -102,7 +102,7 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-bold text-slate-800 mb-2">Phone</h3>
+              <h3 className="text-lg font-bold text-slate-800 mb-2">Telefon</h3>
               <p className="text-gray-500 text-sm">+46 70 405 4743</p>
               <p className="text-gray-500 text-sm">Mon - Fri, 8am - 6pm</p>
             </div>
@@ -131,13 +131,14 @@ export default function Home() {
                 </svg>
               </div>
               <h3 className="text-lg font-bold text-slate-800 mb-2">
-                Postal Address
+                Postadress
               </h3>
               <p className="text-gray-500 text-sm">
                 Luntgatan 29, 602 19 Norrköping
               </p>
+              <br />
               <h3 className="text-lg font-bold text-slate-800 mb-2">
-                Delivery Address
+                Leveransadress
               </h3>
               <p className="text-gray-500 text-sm">
                 Lundatorpsvägen 5, 602 13 Norrköping

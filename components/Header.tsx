@@ -39,20 +39,20 @@ export default function Header() {
               href="#pdf-section"
               className="text-gray-600 hover:text-red-600 transition-colors font-medium"
             >
-              Produckt List
+              Produkter
             </a>
             <a
               href="#contact-section"
               className="text-gray-600 hover:text-red-600 transition-colors font-medium"
             >
-              kontakta
+              Kontakta
             </a>
-            <Link
+            {/* <Link
               href="/admin"
               className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg transition-colors text-sm font-medium shadow-sm"
             >
               Admin
-            </Link>
+            </Link> */}
           </nav>
 
           {/* Mobile Menu Button */}

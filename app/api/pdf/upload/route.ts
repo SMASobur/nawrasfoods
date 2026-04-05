@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { put } from "@vercel/blob";
 import jwt from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -25,19 +26,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Convert file to Base64 for database storage
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    const base64Data = buffer.toString("base64");
+    // Upload to Vercel Blob
+    const blob = await put(file.name, file, {
+      access: "public",
+    });
 
-    // Delete old PDFs
+    // Delete old PDFs from database
     await prisma.pdfDocument.deleteMany({});
 
-    // Save to database (file data stored as base64)
+    // Save to database
     const pdfDocument = await prisma.pdfDocument.create({
       data: {
         filename: file.name,
-        filepath: `data:application/pdf;base64,${base64Data}`,
+        filepath: blob.url,
         fileSize: file.size,
       },
     });

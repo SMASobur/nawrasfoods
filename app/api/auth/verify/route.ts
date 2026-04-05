@@ -1,9 +1,10 @@
-import jwt from 'jsonwebtoken';
-import { NextRequest, NextResponse } from 'next/server';
+export const runtime = "nodejs";
+import jwt from "jsonwebtoken";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
-    const token = request.cookies.get('admin_token')?.value;
+    const token = request.cookies.get("admin_token")?.value;
 
     if (!token) {
       return NextResponse.json({ authenticated: false }, { status: 401 });

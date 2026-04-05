@@ -79,7 +79,10 @@ export default function AdminDashboard() {
         ) as HTMLInputElement;
         if (fileInput) fileInput.value = "";
       } else {
-        setMessage({ type: "error", text: data.error || "Upload failed" });
+        setMessage({
+          type: "error",
+          text: data.details || data.error || JSON.stringify(data),
+        });
       }
     } catch (_e) {
       setMessage({ type: "error", text: "Something went wrong" });

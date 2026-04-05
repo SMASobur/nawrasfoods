@@ -44,3 +44,4 @@ next-env.d.ts
 
 # Ignore uploaded PDFs
 public/uploads/*.pdf
+.env*.local

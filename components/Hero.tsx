@@ -2,9 +2,19 @@
 
 import { useEffect, useState } from "react";
 
+// Date formatter
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+
 export default function Hero() {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [filename, setFilename] = useState<string | null>(null);
+  const [uploadedAt, setUploadedAt] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/pdf/latest")
@@ -15,6 +25,7 @@ export default function Hero() {
       .then((data) => {
         setPdfUrl(data.filepath);
         setFilename(data.filename);
+        setUploadedAt(data.uploadedAt);
       })
       .catch(() => {
         // No PDF uploaded yet
@@ -70,6 +81,26 @@ export default function Hero() {
             </a>
           )}
         </div>
+
+        {/* Upload Date */}
+        {uploadedAt && (
+          <p className="mt-6 text-lg text-gray-500 flex items-center justify-center gap-1.5">
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+            Senast uppdaterad: {formatDate(uploadedAt)}
+          </p>
+        )}
       </div>
     </section>
   );

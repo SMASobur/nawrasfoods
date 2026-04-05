@@ -22,7 +22,7 @@ model Admin {
 model PdfDocument {
   id         Int      @id @default(autoincrement())
   filename   String
-  filepath   String
+  filepath   String   @db.Text
   fileSize   Int
   uploadedAt DateTime @default(now())
 }

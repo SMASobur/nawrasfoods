@@ -1,8 +1,6 @@
 import prisma from "@/lib/prisma";
-import { mkdir, writeFile } from "fs/promises";
 import jwt from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";
-import path from "path";
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,24 +25,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
-    await mkdir(uploadDir, { recursive: true });
-
-    const timestamp = Date.now();
-    const safeFilename = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-    const filename = `${timestamp}_${safeFilename}`;
-    const filepath = path.join(uploadDir, filename);
-
+    // Convert file to Base64 for database storage
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    await writeFile(filepath, buffer);
+    const base64Data = buffer.toString("base64");
 
+    // Delete old PDFs
     await prisma.pdfDocument.deleteMany({});
 
+    // Save to database (file data stored as base64)
     const pdfDocument = await prisma.pdfDocument.create({
       data: {
         filename: file.name,
-        filepath: `/uploads/${filename}`,
+        filepath: `data:application/pdf;base64,${base64Data}`,
         fileSize: file.size,
       },
     });

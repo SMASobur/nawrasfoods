@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import Hero from "@/components/Hero";
 import PdfViewer from "@/components/PdfViewer";
 import Image from "next/image";
 
@@ -24,32 +25,11 @@ export default function Home() {
           </div>
 
           <h1 className="text-4xl md:text-6xl font-extrabold text-slate-800 mb-6 tracking-tight">
-            Welcome to <span className="text-red-600">Nawras</span>
+            Välkommen till <span className="text-red-600">Nawras</span>
             <span className="text-amber-500">Foods</span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Access and download important documents with ease. Your centralized
-            hub for all PDF resources.
-          </p>
-          <a
-            href="#pdf-section"
-            className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-xl transition-all font-semibold text-lg shadow-lg hover:shadow-xl hover:scale-105"
-          >
-            View Documents
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </a>
+
+          <Hero />
         </div>
       </section>
 
@@ -58,11 +38,11 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-3">
-              Available Documents
+              Tillgänglig sortimentslista
             </h2>
             <div className="w-16 h-1 bg-red-600 mx-auto rounded-full mb-4"></div>
             <p className="text-gray-500">
-              Preview or download the latest document below
+              Förhandsgranska eller ladda ner det senaste dokumentet nedan.
             </p>
           </div>
           <PdfViewer />
@@ -74,11 +54,11 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-3">
-              Contact Us
+              Kontakta oss
             </h2>
             <div className="w-16 h-1 bg-amber-500 mx-auto rounded-full mb-4"></div>
             <p className="text-gray-500">
-              Have questions? Reach out to us through any of these channels
+              Har du frågor? Kontakta oss via någon av dessa kanaler.
             </p>
           </div>
 
@@ -100,9 +80,9 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-bold text-slate-800 mb-2">Email</h3>
-              <p className="text-gray-500 text-sm">info@nawrasfoods.com</p>
-              <p className="text-gray-500 text-sm">support@nawrasfoods.com</p>
+              <h3 className="text-lg font-bold text-slate-800 mb-2">E-post</h3>
+              <p className="text-gray-500 text-sm">murat@nawrasfoods.se</p>
+              <p className="text-gray-500 text-sm">info@nawrasfoods.se</p>
             </div>
 
             {/* Phone */}
@@ -123,8 +103,8 @@ export default function Home() {
                 </svg>
               </div>
               <h3 className="text-lg font-bold text-slate-800 mb-2">Phone</h3>
-              <p className="text-gray-500 text-sm">+968 XXXX XXXX</p>
-              <p className="text-gray-500 text-sm">Mon - Fri, 9am - 6pm</p>
+              <p className="text-gray-500 text-sm">+46 70 405 4743</p>
+              <p className="text-gray-500 text-sm">Mon - Fri, 8am - 6pm</p>
             </div>
 
             {/* Address */}
@@ -150,9 +130,18 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-bold text-slate-800 mb-2">Address</h3>
-              <p className="text-gray-500 text-sm">Muscat, Oman</p>
-              <p className="text-gray-500 text-sm">Al Khuwair</p>
+              <h3 className="text-lg font-bold text-slate-800 mb-2">
+                Postal Address
+              </h3>
+              <p className="text-gray-500 text-sm">
+                Luntgatan 29, 602 19 Norrköping
+              </p>
+              <h3 className="text-lg font-bold text-slate-800 mb-2">
+                Delivery Address
+              </h3>
+              <p className="text-gray-500 text-sm">
+                Lundatorpsvägen 5, 602 13 Norrköping
+              </p>
             </div>
           </div>
         </div>

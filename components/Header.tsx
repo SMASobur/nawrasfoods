@@ -33,19 +33,19 @@ export default function Header() {
               href="/"
               className="text-gray-600 hover:text-red-600 transition-colors font-medium"
             >
-              Home
+              Hem
             </Link>
             <a
               href="#pdf-section"
               className="text-gray-600 hover:text-red-600 transition-colors font-medium"
             >
-              Documents
+              Produckt List
             </a>
             <a
               href="#contact-section"
               className="text-gray-600 hover:text-red-600 transition-colors font-medium"
             >
-              Contact
+              kontakta
             </a>
             <Link
               href="/admin"

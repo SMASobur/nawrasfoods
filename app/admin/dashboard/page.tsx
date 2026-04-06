@@ -65,10 +65,11 @@ export default function AdminDashboard() {
     setMessage(null);
 
     try {
-      const blob = await put(fileName, fileBuffer, {
+      const uniqueName = `${Date.now()}_${fileName}`;
+
+      const blob = await put(uniqueName, fileBuffer, {
         access: "public",
         token: process.env.NEXT_PUBLIC_BLOB_TOKEN,
-        allowOverwrite: true,
       });
 
       const res = await fetch("/api/pdf/upload", {
@@ -106,6 +107,7 @@ export default function AdminDashboard() {
       setUploading(false);
     }
   };
+
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
     router.push("/admin");

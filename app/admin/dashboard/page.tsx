@@ -175,7 +175,7 @@ export default function AdminDashboard() {
               Select PDF File
             </label>
             <div className="relative border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 hover:bg-blue-50/30 transition-colors cursor-pointer">
-              {fileBuffer ? (
+              {file ? (
                 <div>
                   <svg
                     className="w-12 h-12 mx-auto text-red-500 mb-3"
@@ -184,9 +184,9 @@ export default function AdminDashboard() {
                   >
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
                   </svg>
-                  <p className="text-gray-900 font-medium">{fileName}</p>
+                  <p className="text-gray-900 font-medium">{file.name}</p>
                   <p className="text-gray-500 text-sm mt-1">
-                    {(fileSize / (1024 * 1024)).toFixed(2)} MB
+                    {(file.size / (1024 * 1024)).toFixed(2)} MB
                   </p>
                 </div>
               ) : (
@@ -222,7 +222,7 @@ export default function AdminDashboard() {
 
           <button
             type="submit"
-            disabled={uploading || !fileBuffer}
+            disabled={uploading || !file}
             className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-3 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
           >
             {uploading ? (
@@ -231,22 +231,7 @@ export default function AdminDashboard() {
                 Uploading...
               </>
             ) : (
-              <>
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                  />
-                </svg>
-                Upload PDF
-              </>
+              "Upload PDF"
             )}
           </button>
         </form>

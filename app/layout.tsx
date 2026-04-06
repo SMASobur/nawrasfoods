@@ -3,10 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "NawrasFoods ",
-  description: "Access and download important documents from NawrasFoods",
-  icons: {
-    icon: "/favicon.ico",
-  },
+  description: "Access and download sortiment lista frän NawrasFoods",
 };
 
 export default function RootLayout({

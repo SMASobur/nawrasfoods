@@ -58,15 +58,31 @@ export default function AdminDashboard() {
     setMessage(null);
 
     try {
-      const formData = new FormData();
-      formData.append("pdf", file);
+      const presignRes = await fetch(
+        `/api/pdf/upload?filename=${encodeURIComponent(file.name)}`,
+      );
+      if (!presignRes.ok) throw new Error("Failed to get upload link");
+      const { presignedUrl, publicUrl } = await presignRes.json();
 
-      const res = await fetch("/api/pdf/upload", {
-        method: "POST",
-        body: formData,
+      const uploadRes = await fetch(presignedUrl, {
+        method: "PUT",
+        body: file,
+        headers: { "Content-Type": "application/pdf" },
       });
 
-      if (res.ok) {
+      if (!uploadRes.ok) throw new Error("Failed to upload to storage");
+
+      const saveRes = await fetch("/api/pdf/upload", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          filename: file.name,
+          filepath: publicUrl,
+          fileSize: file.size,
+        }),
+      });
+
+      if (saveRes.ok) {
         setMessage({
           type: "success",
           text: "PDF uploaded successfully! The old PDF has been replaced.",
@@ -77,10 +93,10 @@ export default function AdminDashboard() {
         ) as HTMLInputElement;
         if (fileInput) fileInput.value = "";
       } else {
-        setMessage({ type: "error", text: "Failed to upload" });
+        setMessage({ type: "error", text: "Failed to save file info" });
       }
     } catch (_e) {
-      setMessage({ type: "error", text: "Something went wrong" });
+      setMessage({ type: "error", text: "Something went wrong during upload" });
     } finally {
       setUploading(false);
     }

@@ -31,10 +31,8 @@ export async function POST(request: NextRequest) {
       }),
     );
 
-    // Generate the public URL
     const publicUrl = `${process.env.R2_PUBLIC_URL}/${key}`;
 
-    // Delete old & Save new to DB
     await prisma.pdfDocument.deleteMany();
     await prisma.pdfDocument.create({
       data: { filename: file.name, filepath: publicUrl, fileSize: file.size },

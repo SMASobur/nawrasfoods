@@ -62,6 +62,7 @@ export default function AdminDashboard() {
       const blob = await put(file.name, file, {
         access: "public",
         token: process.env.NEXT_PUBLIC_BLOB_TOKEN,
+        allowOverwrite: true,
       });
 
       const res = await fetch("/api/pdf/upload", {

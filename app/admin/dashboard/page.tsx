@@ -1,6 +1,5 @@
 "use client";
 
-import { put } from "@vercel/blob";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -56,7 +55,7 @@ export default function AdminDashboard() {
 
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!fileBuffer || !fileName) {
+    if (!file) {
       setMessage({ type: "error", text: "Please select a file" });
       return;
     }
@@ -65,44 +64,29 @@ export default function AdminDashboard() {
     setMessage(null);
 
     try {
-      const uniqueName = `${Date.now()}_${fileName}`;
-
-      const blob = await put(uniqueName, fileBuffer, {
-        access: "public",
-        token: process.env.NEXT_PUBLIC_BLOB_TOKEN,
-      });
+      const formData = new FormData();
+      formData.append("pdf", file);
 
       const res = await fetch("/api/pdf/upload", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          filename: fileName,
-          filepath: blob.url,
-          fileSize: fileSize,
-        }),
+        body: formData,
       });
-
-      const data = await res.json();
 
       if (res.ok) {
         setMessage({
           type: "success",
           text: "PDF uploaded successfully! The old PDF has been replaced.",
         });
-        setFileBuffer(null);
-        setFileName(null);
+        setFile(null);
         const fileInput = document.getElementById(
           "pdf-input",
         ) as HTMLInputElement;
         if (fileInput) fileInput.value = "";
       } else {
-        setMessage({
-          type: "error",
-          text: data.error || "Failed to save file info",
-        });
+        setMessage({ type: "error", text: "Failed to upload" });
       }
     } catch (_e) {
-      setMessage({ type: "error", text: "Something went wrong during upload" });
+      setMessage({ type: "error", text: "Something went wrong" });
     } finally {
       setUploading(false);
     }

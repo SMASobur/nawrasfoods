@@ -6,9 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function AdminDashboard() {
-  const [fileBuffer, setFileBuffer] = useState<ArrayBuffer | null>(null);
-  const [fileName, setFileName] = useState<string | null>(null);
-  const [fileSize, setFileSize] = useState<number>(0);
+  const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState<{
     type: "success" | "error";
@@ -37,18 +35,14 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       if (selectedFile.type !== "application/pdf") {
         setMessage({ type: "error", text: "Please select a PDF file" });
         return;
       }
-
-      const buffer = await selectedFile.arrayBuffer();
-      setFileBuffer(buffer);
-      setFileName(selectedFile.name);
-      setFileSize(selectedFile.size);
+      setFile(selectedFile);
       setMessage(null);
     }
   };

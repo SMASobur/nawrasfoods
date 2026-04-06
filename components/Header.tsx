@@ -110,13 +110,13 @@ export default function Header() {
               >
                 Contact
               </a>
-              <Link
+              {/* <Link
                 href="/admin"
                 onClick={() => setMobileMenuOpen(false)}
                 className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-center transition-colors text-sm font-medium mt-2"
               >
                 Admin
-              </Link>
+              </Link> */}
             </nav>
           </div>
         )}

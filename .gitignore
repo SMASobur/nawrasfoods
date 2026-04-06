@@ -45,3 +45,12 @@ next-env.d.ts
 # Ignore uploaded PDFs
 public/uploads/*.pdf
 .env*.local
+
+# OpenNext
+.open-next
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example

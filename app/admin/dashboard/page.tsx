@@ -7,7 +7,9 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function AdminDashboard() {
-  const [file, setFile] = useState<File | null>(null);
+  const [fileBuffer, setFileBuffer] = useState<ArrayBuffer | null>(null);
+  const [fileName, setFileName] = useState<string | null>(null);
+  const [fileSize, setFileSize] = useState<number>(0);
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState<{
     type: "success" | "error";
@@ -36,21 +38,25 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       if (selectedFile.type !== "application/pdf") {
         setMessage({ type: "error", text: "Please select a PDF file" });
         return;
       }
-      setFile(selectedFile);
+
+      const buffer = await selectedFile.arrayBuffer();
+      setFileBuffer(buffer);
+      setFileName(selectedFile.name);
+      setFileSize(selectedFile.size);
       setMessage(null);
     }
   };
 
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!file) {
+    if (!fileBuffer || !fileName) {
       setMessage({ type: "error", text: "Please select a file" });
       return;
     }
@@ -59,7 +65,7 @@ export default function AdminDashboard() {
     setMessage(null);
 
     try {
-      const blob = await put(file.name, file, {
+      const blob = await put(fileName, fileBuffer, {
         access: "public",
         token: process.env.NEXT_PUBLIC_BLOB_TOKEN,
         allowOverwrite: true,
@@ -69,9 +75,9 @@ export default function AdminDashboard() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          filename: file.name,
+          filename: fileName,
           filepath: blob.url,
-          fileSize: file.size,
+          fileSize: fileSize,
         }),
       });
 
@@ -82,7 +88,8 @@ export default function AdminDashboard() {
           type: "success",
           text: "PDF uploaded successfully! The old PDF has been replaced.",
         });
-        setFile(null);
+        setFileBuffer(null);
+        setFileName(null);
         const fileInput = document.getElementById(
           "pdf-input",
         ) as HTMLInputElement;
@@ -99,7 +106,6 @@ export default function AdminDashboard() {
       setUploading(false);
     }
   };
-
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
     router.push("/admin");
@@ -183,7 +189,7 @@ export default function AdminDashboard() {
               Select PDF File
             </label>
             <div className="relative border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 hover:bg-blue-50/30 transition-colors cursor-pointer">
-              {file ? (
+              {fileBuffer ? (
                 <div>
                   <svg
                     className="w-12 h-12 mx-auto text-red-500 mb-3"
@@ -192,9 +198,9 @@ export default function AdminDashboard() {
                   >
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
                   </svg>
-                  <p className="text-gray-900 font-medium">{file.name}</p>
+                  <p className="text-gray-900 font-medium">{fileName}</p>
                   <p className="text-gray-500 text-sm mt-1">
-                    {(file.size / (1024 * 1024)).toFixed(2)} MB
+                    {(fileSize / (1024 * 1024)).toFixed(2)} MB
                   </p>
                 </div>
               ) : (
@@ -230,7 +236,7 @@ export default function AdminDashboard() {
 
           <button
             type="submit"
-            disabled={uploading || !file}
+            disabled={uploading || !fileBuffer}
             className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-3 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
           >
             {uploading ? (

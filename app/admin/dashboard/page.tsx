@@ -1,5 +1,6 @@
 "use client";
 
+import { put } from "@vercel/blob";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -58,12 +59,19 @@ export default function AdminDashboard() {
     setMessage(null);
 
     try {
-      const formData = new FormData();
-      formData.append("pdf", file);
+      const blob = await put(file.name, file, {
+        access: "public",
+        token: process.env.NEXT_PUBLIC_BLOB_TOKEN,
+      });
 
       const res = await fetch("/api/pdf/upload", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          filename: file.name,
+          filepath: blob.url,
+          fileSize: file.size,
+        }),
       });
 
       const data = await res.json();
@@ -81,11 +89,11 @@ export default function AdminDashboard() {
       } else {
         setMessage({
           type: "error",
-          text: data.details || data.error || JSON.stringify(data),
+          text: data.error || "Failed to save file info",
         });
       }
     } catch (_e) {
-      setMessage({ type: "error", text: "Something went wrong" });
+      setMessage({ type: "error", text: "Something went wrong during upload" });
     } finally {
       setUploading(false);
     }

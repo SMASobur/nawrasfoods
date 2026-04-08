@@ -37,7 +37,7 @@ export default function Hero() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           {/* View Documents Button */}
-          <a
+          {/* <a
             href="#pdf-section"
             className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-xl transition-all font-semibold text-lg shadow-lg hover:shadow-xl hover:scale-105 w-full sm:w-auto justify-center"
           >
@@ -55,17 +55,17 @@ export default function Hero() {
                 d="M19 9l-7 7-7-7"
               />
             </svg>
-          </a>
+          </a> */}
 
           {/* Direct Download Button */}
           {pdfUrl && filename && (
             <a
               href={pdfUrl}
               download={filename}
-              className="inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-slate-800 border-2 border-slate-200 hover:border-amber-400 px-10 py-4 rounded-xl transition-all font-semibold text-lg shadow-sm hover:shadow-lg w-full sm:w-auto justify-center"
+              className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-xl transition-all font-semibold text-lg shadow-lg hover:shadow-xl hover:scale-105 w-full sm:w-auto justify-center"
             >
               <svg
-                className="w-5 h-5 text-amber-500"
+                className="w-5 h-5 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

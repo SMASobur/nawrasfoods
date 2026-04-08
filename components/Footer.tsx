@@ -1,16 +1,27 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
+  // Function to scroll to top
+  const scrollToTop = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <footer className="bg-slate-900 text-gray-400 mt-auto">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand */}
+          {/* Brand logo */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
+            <button
+              onClick={scrollToTop}
+              className="flex items-center gap-3 mb-4 cursor-pointer"
+            >
               <Image
                 src="/images/logo-nav.png"
                 alt="NawrasFoods"
@@ -21,7 +32,7 @@ export default function Footer() {
               <h3 className="text-xl font-bold text-white">
                 Nawras<span className="text-red-500">Foods</span>
               </h3>
-            </div>
+            </button>
             <p className="text-sm leading-relaxed">Norrköping, Sweden</p>
             <br />
             <Link
@@ -37,9 +48,12 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Snabblänkar</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/" className="hover:text-red-400 transition-colors">
+                <button
+                  onClick={scrollToTop}
+                  className="hover:text-red-400 transition-colors cursor-pointer"
+                >
                   Hem
-                </Link>
+                </button>
               </li>
               <li>
                 <a
@@ -126,7 +140,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm">
-          <p>© {currentYear} NawrasFoods. All rights reserved. KnitNox </p>
+          <p>© {currentYear} NawrasFoods. All rights reserved. KnitNox</p>
         </div>
       </div>
     </footer>

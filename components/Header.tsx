@@ -7,6 +7,12 @@ import { useState } from "react";
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const scrollToTop = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header className="bg-white text-slate-800 sticky top-0 z-50 shadow-sm border-b border-gray-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -29,12 +35,12 @@ export default function Header() {
 
           {/* Desktop Menu */}
           <nav className="hidden md:flex items-center gap-8">
-            <Link
-              href="/"
-              className="text-gray-600 hover:text-red-600 transition-colors font-medium"
+            <button
+              onClick={scrollToTop}
+              className="text-gray-600 hover:text-red-600 transition-colors font-medium cursor-pointer"
             >
               Hem
-            </Link>
+            </button>
             <a
               href="#pdf-section"
               className="text-gray-600 hover:text-red-600 transition-colors font-medium"
@@ -89,26 +95,25 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="md:hidden pb-4 border-t border-gray-100">
             <nav className="flex flex-col gap-2 pt-4">
-              <Link
-                href="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-gray-600 hover:text-red-600 px-2 py-2 font-medium"
+              <button
+                onClick={scrollToTop}
+                className="text-gray-600 hover:text-red-600 px-2 py-2 font-medium text-left cursor-pointer"
               >
-                Home
-              </Link>
+                Hem
+              </button>
               <a
                 href="#pdf-section"
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-gray-600 hover:text-red-600 px-2 py-2 font-medium"
               >
-                Documents
+                Produkter
               </a>
               <a
                 href="#contact-section"
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-gray-600 hover:text-red-600 px-2 py-2 font-medium"
               >
-                Contact
+                Kontakta
               </a>
               {/* <Link
                 href="/admin"
